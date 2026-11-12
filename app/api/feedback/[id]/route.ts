@@ -1,3 +1,4 @@
+import { getFeedbackById } from "@/lib/data";
 import { NextRequest, NextResponse } from "next/server";
 
 // TODO: Import getFeedbackById from @/lib/data
@@ -11,5 +12,9 @@ export async function GET(
   // TODO: Look up feedback by id
   // TODO: Return 404 if not found
   // TODO: Return the feedback entry as JSON
-  return NextResponse.json({ error: "Not implemented" }, { status: 501 });
+  const feedback = await getFeedbackById(id);
+  if (!feedback) {
+    return NextResponse.json({ error: "Feedback not found" }, { status: 404 });
+  } 
+  return NextResponse.json(feedback);
 }
